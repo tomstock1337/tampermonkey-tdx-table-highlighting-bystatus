@@ -1,13 +1,16 @@
 // ==UserScript==
 // @name         TDNext Table Highlighting
 // @namespace    https://www.thomasstockwell.com
-// @version      0.7
+// @version      0.9
 // @description  try to take over the world!
 // @author       You
 
 // @match        https://*.teamdynamix.com/TDNext/Apps/569/Tickets/Desktop.aspx
+// @match        https://*.teamdynamix.com/TDNext/Apps/569/Tickets/Default.aspx
 // @match        https://*.teamdynamix.com/TDNext/Home/Desktop/Desktop.aspx
 // @match        https://*.teamdynamix.com/TDNext/Apps/People/PersonTickets.aspx*
+// @match        https://*.teamdynamix.com/TDNext/Apps/569/Reporting/ReportViewer*
+// @match        https://*.teamdynamix.com/TDNext/Apps/569/Tickets/TicketSearch*
 // @require      https://code.jquery.com/jquery-3.6.0.min.js
 // @require      https://gist.github.com/raw/2625891/waitForKeyElements.js
 // @downloadURL  https://github.com/tomstock1337/tampermonkey-tdx-table-highlighting-bystatus/raw/main/tampermonkey-tdx-table-highlighting-bystatus.user.js
@@ -48,9 +51,10 @@
         headerStatusIndex = $(headerSelector,table).parent().index();
         if ($(headerSelector,table).length<=0){
             headerSelector = "tr:first() td:contains('Status')";
+            headerStatus = $(headerSelector,table);
             headerStatusIndex = $(headerSelector,table).index();
         }
-        if(headerStatus){
+        if($(headerStatus).length>0){
           if(headerStatusIndex != -1)
           {
             var tableRow = $("tbody tr",table);
