@@ -1,10 +1,12 @@
 // ==UserScript==
 // @name         TDNext Table Highlighting
 // @namespace    https://www.thomasstockwell.com
-// @version      0.6
+// @version      0.7
 // @description  try to take over the world!
 // @author       You
-// @match        https://*.teamdynamix.com/TDNext/Home/Desktop/Default.aspx
+
+// @match        https://*.teamdynamix.com/TDNext/Apps/569/Tickets/Desktop.aspx
+// @match        https://*.teamdynamix.com/TDNext/Home/Desktop/Desktop.aspx
 // @match        https://*.teamdynamix.com/TDNext/Apps/People/PersonTickets.aspx*
 // @require      https://code.jquery.com/jquery-3.6.0.min.js
 // @require      https://gist.github.com/raw/2625891/waitForKeyElements.js
@@ -30,41 +32,15 @@
         {"Status":"Cancelled", "BackColor":"#2B3036",      "Color":"White"},
       ]
     };
-
-    var interval = setInterval(function () {
+    waitForKeyElements ("table", function(){
       ProcessPage();
-      clearInterval(interval);
-    }, 1000);
-
+    });
     function ProcessPage() {
       var iframe;
       var tables;
-
-      if ($("#appDesktop").length>0){
-        //Desktop Application
-        iframe = $("#appDesktop").contents();
-        tables = $("table", iframe);
-
-        $(tables).each(function(i,table){
-          colorizeTable(table);
-        });
-      }
-      if ($("#ai_569").length>0) {
-        //Ticketing application
-        iframe = $("#ai_569").contents();
-        iframe = $("#RightFrame",iframe).contents();
-        tables = $("table", iframe);
-        $(tables).each(function(i,table){
-          colorizeTable(table);
-        });
-      }
-      if ($("table[itemtype='TeamDynamix.Domain.Tickets.Ticket']").length>0) {
-        //Ticketing application
-        tables = $("table[itemtype='TeamDynamix.Domain.Tickets.Ticket']");
-        $(tables).each(function(i,table){
-          colorizeTable(table);
-        });
-      }
+      $("table").each(function(i,table){
+        colorizeTable(table);
+      });
       function colorizeTable(table){
         var headerSelector = "tr:first() th a:contains('Status'), tr:first() td a:contains('Status')";
         var headerStatus = $(headerSelector,table);
