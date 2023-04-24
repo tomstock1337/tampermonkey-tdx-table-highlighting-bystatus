@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         TDNext Table Highlighting
 // @namespace    https://www.thomasstockwell.com
-// @version      0.10
+// @version      0.11
 // @description  try to take over the world!
 // @author       You
 
@@ -30,6 +30,7 @@
         {"Status":"In Process","BackColor":"#F5CC85",      "Color":"Black"},
         {"Status":"On Hold",   "BackColor":"#CFBFF7",      "Color":"Black"},
         {"Status":"Testing",   "BackColor":"#B392FC",      "Color":"Black"},
+        {"Status":"Awaiting Customer Feedback",   "BackColor":"#967DF9",      "Color":"Black"},
         {"Status":"Closed",    "BackColor":"#5E6A75",      "Color":"White"},
         {"Status":"Resolved",  "BackColor":"#91A4B5",      "Color":"White"},
         {"Status":"Cancelled", "BackColor":"#2B3036",      "Color":"White"},
