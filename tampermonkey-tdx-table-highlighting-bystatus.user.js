@@ -5,12 +5,13 @@
 // @description  try to take over the world!
 // @author       You
 
-// @match        https://*.teamdynamix.com/TDNext/Apps/*Tickets/Desktop.aspx
-// @match        https://*.teamdynamix.com/TDNext/Apps/*Tickets/Default.aspx
-// @match        https://*.teamdynamix.com/TDNext/Home/Desktop/Desktop.aspx
-// @match        https://*.teamdynamix.com/TDNext/Apps/People/PersonTickets.aspx*
-// @match        https://*.teamdynamix.com/TDNext/Apps/*Reporting/ReportViewer*
-// @match        https://*.teamdynamix.com/TDNext/Apps/*Tickets/TicketSearch*
+// @match        https://*.teamdynamix.com/*TDNext/Apps/*Tickets/Desktop.aspx
+// @match        https://*.teamdynamix.com/*TDNext/Apps/*Tickets/Default.aspx
+// @match        https://*.teamdynamix.com/*TDNext/Home/Desktop/Desktop.aspx
+// @match        https://*.teamdynamix.com/*TDNext/Apps/People/PersonTickets.aspx*
+// @match        https://*.teamdynamix.com/*TDNext/Apps/*Reporting/ReportViewer*
+// @match        https://*.teamdynamix.com/*TDNext/Apps/*Tickets/TicketSearch*
+// @match        https://*.teamdynamix.com/*TDNext/Apps/*Tickets/TicketChildren?TicketID=21415351
 // @require      https://code.jquery.com/jquery-3.6.0.min.js
 // @require      https://gist.github.com/raw/2625891/waitForKeyElements.js
 // @downloadURL  https://github.com/tomstock1337/tampermonkey-tdx-table-highlighting-bystatus/raw/main/tampermonkey-tdx-table-highlighting-bystatus.user.js
@@ -25,16 +26,16 @@
 
     const statusColors = {
       "Colors": [
-        {"Status":"New",       "BackColor":"LightGreen",   "Color":"Black"},
-        {"Status":"Open",      "BackColor":"LightBlue",    "Color":"Black"},
-        {"Status":"In Process","BackColor":"#F5CC85",      "Color":"Black"},
-        {"Status":"On Hold",   "BackColor":"#CFBFF7",      "Color":"Black"},
-        {"Status":"Testing",   "BackColor":"#B392FC",      "Color":"Black"},
-        {"Status":"Awaiting Customer Feedback",   "BackColor":"#967DF9",      "Color":"Black"},
-        {"Status":"Awaiting Third Party",   "BackColor":"#9c91e3",      "Color":"Black"},
-        {"Status":"Closed",    "BackColor":"#5E6A75",      "Color":"White"},
-        {"Status":"Resolved",  "BackColor":"#91A4B5",      "Color":"White"},
-        {"Status":"Cancelled", "BackColor":"#2B3036",      "Color":"White"},
+        {"Status":"New",                          "BackColor":"LightGreen","TestBackColor":"#FFFFFF",   "Color":"Black"},
+        {"Status":"Open",                         "BackColor":"LightBlue","TestBackColor":"#FFFFFF",    "Color":"Black"},
+        {"Status":"In Process",                   "BackColor":"#F5CC85","TestBackColor":"#FFFFFF",      "Color":"Black"},
+        {"Status":"On Hold",                      "BackColor":"#CFBFF7","TestBackColor":"#FFFFFF",      "Color":"Black"},
+        {"Status":"Testing",                      "BackColor":"#B392FC","TestBackColor":"#FFFFFF",      "Color":"Black"},
+        {"Status":"Awaiting Customer Feedback",   "BackColor":"#967DF9","TestBackColor":"#FFFFFF",      "Color":"Black"},
+        {"Status":"Awaiting Third Party",         "BackColor":"#9c91e3","TestBackColor":"#FFFFFF",      "Color":"Black"},
+        {"Status":"Closed",                       "BackColor":"#5E6A75","TestBackColor":"#0d1117",      "Color":"White"},
+        {"Status":"Resolved",                     "BackColor":"#91A4B5","TestBackColor":"#0d1117",      "Color":"White"},
+        {"Status":"Cancelled",                    "BackColor":"#2B3036","TestBackColor":"#0d1117",      "Color":"White"},
       ]
     };
     waitForKeyElements ("table", function(){
@@ -66,9 +67,16 @@
                 Object.entries(statusColors.Colors).forEach((obj)=>{
                     if(status === obj[1].Status)
                     {
+                      if (/SBTDNext/.test(window.location.href)) {
+                        $(trow).css('background-image','linear-gradient('+obj[1].BackColor+','+obj[1].TestBackColor+')');
+                        $(trow).css('color',obj[1].Color);
+                        $("a",trow).css('color',obj[1].Color);
+                      }
+                      else {
                         $(trow).css('background-color',obj[1].BackColor);
                         $(trow).css('color',obj[1].Color);
                         $("a",trow).css('color',obj[1].Color);
+                      }
                     }
                 });
             });
