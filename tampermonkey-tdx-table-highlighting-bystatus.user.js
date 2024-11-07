@@ -11,7 +11,7 @@
 // @match        https://*.teamdynamix.com/*TDNext/Apps/People/PersonTickets.aspx*
 // @match        https://*.teamdynamix.com/*TDNext/Apps/*Reporting/ReportViewer*
 // @match        https://*.teamdynamix.com/*TDNext/Apps/*Tickets/TicketSearch*
-// @match        https://*.teamdynamix.com/*TDNext/Apps/*Tickets/TicketChildren?TicketID=21415351
+// @match        https://*.teamdynamix.com/*TDNext/Apps/*Tickets/TicketChildren?TicketID=*
 // @require      https://code.jquery.com/jquery-3.6.0.min.js
 // @require      https://gist.github.com/raw/2625891/waitForKeyElements.js
 // @downloadURL  https://github.com/tomstock1337/tampermonkey-tdx-table-highlighting-bystatus/raw/main/tampermonkey-tdx-table-highlighting-bystatus.user.js
