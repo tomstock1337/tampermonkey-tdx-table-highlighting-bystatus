@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         TDNext Table Highlighting
 // @namespace    https://www.thomasstockwell.com
-// @version      0.13
+// @version      0.14
 // @description  try to take over the world!
 // @author       You
 
@@ -12,7 +12,7 @@
 // @match        https://*.teamdynamix.com/*TDNext/Apps/*Reporting/ReportViewer*
 // @match        https://*.teamdynamix.com/*TDNext/Apps/*Tickets/TicketSearch*
 // @match        https://*.teamdynamix.com/*TDNext/Apps/*Tickets/TicketChildren?TicketID=*
-// @require      https://code.jquery.com/jquery-3.6.0.min.js
+// @match        https://*.teamdynamixpreview.com/*
 // @require      https://gist.github.com/raw/2625891/waitForKeyElements.js
 // @downloadURL  https://github.com/tomstock1337/tampermonkey-tdx-table-highlighting-bystatus/raw/main/tampermonkey-tdx-table-highlighting-bystatus.user.js
 // @updateURL    https://github.com/tomstock1337/tampermonkey-tdx-table-highlighting-bystatus/raw/main/tampermonkey-tdx-table-highlighting-bystatus.user.js
@@ -48,16 +48,11 @@
         colorizeTable(table);
       });
       function colorizeTable(table){
-        var headerSelector = "tr:first() th a:contains('Status'), tr:first() td a:contains('Status')";
+        var headerSelector = "tr:first() th:contains('Status'),tr:first() td:contains('Status')";
         var headerStatus = $(headerSelector,table);
         var headerStatusIndex = -1;
-        headerStatusIndex = $(headerSelector,table).parent().index();
-        if ($(headerSelector,table).length<=0){
-            headerSelector = "tr:first() td:contains('Status')";
-            headerStatus = $(headerSelector,table);
-            headerStatusIndex = $(headerSelector,table).index();
-        }
         if($(headerStatus).length>0){
+          headerStatusIndex = $(headerSelector,table).index();
           if(headerStatusIndex != -1)
           {
             var tableRow = $("tbody tr",table);
@@ -67,14 +62,19 @@
                 Object.entries(statusColors.Colors).forEach((obj)=>{
                     if(status === obj[1].Status)
                     {
-                      if (/SBTDNext/.test(window.location.href)) {
+                      if (/(SBTDNext|teamdynamixpreview)/.test(window.location.href)) {
                         $(trow).css('background-image','linear-gradient('+obj[1].BackColor+','+obj[1].TestBackColor+')');
+                        $('td',trow).css('background-image','linear-gradient('+obj[1].BackColor+','+obj[1].TestBackColor+')');
                         $(trow).css('color',obj[1].Color);
+                        $('td',trow).css('color',obj[1].Color);
+                        $('a',trow).attr('style','background-color:rgba(0,0,0,0) !important');
                         $("a",trow).css('color',obj[1].Color);
                       }
                       else {
                         $(trow).css('background-color',obj[1].BackColor);
+                        $('td',trow).css('background-color',obj[1].BackColor);
                         $(trow).css('color',obj[1].Color);
+                        $('td',trow).css('color',obj[1].Color);
                         $("a",trow).css('color',obj[1].Color);
                       }
                     }
