@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         TDNext Table Highlighting
 // @namespace    https://www.thomasstockwell.com
-// @version      0.15
+// @version      0.16
 // @description  try to take over the world!
 // @author       You
 
@@ -12,7 +12,7 @@
 // @match        https://*.teamdynamix.com/*TDNext/Apps/*Reporting/ReportViewer*
 // @match        https://*.teamdynamix.com/*TDNext/Apps/*Tickets/TicketSearch*
 // @match        https://*.teamdynamix.com/*TDNext/Apps/*Tickets/TicketChildren?TicketID=*
-// @match        https://*.teamdynamix.com/TDWorkManagement/*
+// @match        https://*.teamdynamix.com/TDWorkManagement*
 // @match        https://*.teamdynamixpreview.com/*
 // @require      https://gist.github.com/raw/2625891/waitForKeyElements.js
 // @downloadURL  https://github.com/tomstock1337/tampermonkey-tdx-table-highlighting-bystatus/raw/main/tampermonkey-tdx-table-highlighting-bystatus.user.js
