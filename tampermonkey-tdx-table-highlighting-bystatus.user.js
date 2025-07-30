@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         TDNext Table Highlighting
 // @namespace    https://www.thomasstockwell.com
-// @version      0.18
+// @version      0.18.1
 // @description  Will highlight rows in TDX based on ticket status
 // @author       You
 
@@ -43,23 +43,6 @@
       ProcessPage();
     });
 
-    var observer = new MutationObserver(function(mutationsList, observer) {
-        // This callback runs when changes are detected
-        mutationsList.forEach(function(mutation) {
-            // You can filter mutation types here
-            colorizeTable(mutation.target);
-        });
-    });
-
-    // Set options for what to observe
-    observer.observe("table", {
-        childList: true,        // Detect add/remove of <tr>
-        subtree: true,          // Detect changes in descendants (like <td>)
-        characterData: true,    // Detect direct text node changes
-        characterDataOldValue: true
-        // You can also add: attributes: true, attributeOldValue: true
-    });
-
     function ProcessPage() {
       var iframe;
       var tables;
@@ -69,6 +52,22 @@
       $("table").on('change',function()
       {
         colorizeTable($(this));
+      });
+
+      var observer = new MutationObserver(function(mutationsList, observer) {
+          // This callback runs when changes are detected
+          mutationsList.forEach(function(mutation) {
+              // You can filter mutation types here
+              colorizeTable(mutation.target);
+          });
+      });
+
+      // Set options for what to observe
+      observer.observe("table", {
+          childList: true, // Detect add/remove of <tr>
+          subtree: true, // Detect changes in descendants (like <td>)
+          characterData: true, // Detect direct text node changes
+          characterDataOldValue: true
       });
       function colorizeTable(table){
         var headerSelector = "tr:first() th:contains('Status'),tr:first() td:contains('Status')";
