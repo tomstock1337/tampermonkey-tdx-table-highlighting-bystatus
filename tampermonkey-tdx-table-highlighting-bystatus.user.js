@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         TDNext Table Highlighting
 // @namespace    https://www.thomasstockwell.com
-// @version      0.17
+// @version      0.18
 // @description  Will highlight rows in TDX based on ticket status
 // @author       You
 
@@ -66,10 +66,10 @@
       $("table").each(function(i,table){
         colorizeTable(table);
       });
-      $("table").on('change',function())
+      $("table").on('change',function()
       {
         colorizeTable($(this));
-      }
+      });
       function colorizeTable(table){
         var headerSelector = "tr:first() th:contains('Status'),tr:first() td:contains('Status')";
         var headerStatus = $(headerSelector,table);
